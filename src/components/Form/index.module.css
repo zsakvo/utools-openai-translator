@@ -1,17 +1,17 @@
 .formItem {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .formItem:last-child {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .error {
-    color: red;
-    font-size: 12px;
+  color: red;
+  font-size: 12px;
 }
 
 .help {
-    color: orangered;
-    font-size: 12px;
+  color: orangered;
+  font-size: 12px;
 }

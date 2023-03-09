@@ -1,21 +1,21 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { createRoot } from 'react-dom/client'
-import icon from './assets/images/icon.png'
-import beams from './assets/images/beams.jpg'
+import { useCallback, useEffect, useState } from 'react'
+import icon from '@/assets/images/icon.png'
+import beams from '@/assets/images/beams.jpg'
 import toast, { Toaster } from 'react-hot-toast'
-import * as utils from '../common/utils'
+import * as utils from '@/common/utils'
 import { Client as Styletron } from 'styletron-engine-atomic'
 import { Provider as StyletronProvider } from 'styletron-react'
 import { LightTheme, BaseProvider } from 'baseui'
 import { Input } from 'baseui/input'
-import { createForm } from '../components/Form'
+import { createForm } from '@/components/form'
 import { Button } from 'baseui/button'
-import './index.css'
-import { TranslateMode } from '../content_script/translate'
 import { Select, Value, Option } from 'baseui/select'
 import { Checkbox } from 'baseui/checkbox'
-import { supportLanguages } from '../content_script/lang'
-import { bindHotKey } from '../content_script'
+import { supportLanguages } from '../home/lang'
+import { TranslateMode } from '@/common/utils'
+import { useNavigate } from 'react-router-dom'
+
+// import { bindHotKey } from '../content_script'
 
 const langOptions: Value = supportLanguages.reduce((acc, [id, label]) => {
     return [
@@ -106,7 +106,7 @@ const engine = new Styletron()
 
 const { Form, FormItem, useForm } = createForm<utils.ISettings>()
 
-export function Popup() {
+export default () => {
     const [loading, setLoading] = useState(false)
     const [values, setValues] = useState<utils.ISettings>({
         apiKeys: '',
@@ -136,14 +136,18 @@ export function Popup() {
 
     const onSubmmit = useCallback(async (data: utils.ISettings) => {
         setLoading(true)
+        console.log(data, 'datadata')
+
         await utils.setSettings(data)
-        await bindHotKey(data.hotkey)
+        // await bindHotKey(data.hotkey)
         toast('Saved', {
             icon: '👍',
             duration: 3000,
         })
         setLoading(false)
     }, [])
+
+    const navigate = useNavigate()
 
     return (
         <div
@@ -191,15 +195,15 @@ export function Popup() {
                         <FormItem name='defaultTranslateMode' label='Default Translate Mode'>
                             <TranslateModeSelector />
                         </FormItem>
-                        <FormItem name='autoTranslate' label='Auto Translate'>
-                            <AutoTranslateCheckbox />
-                        </FormItem>
+                        {/* <FormItem name="autoTranslate" label="Auto Translate">
+              <AutoTranslateCheckbox />
+            </FormItem> */}
                         <FormItem name='defaultTargetLanguage' label='Default Target Language'>
                             <LanguageSelector />
                         </FormItem>
-                        <FormItem name='hotkey' label='Hotkey'>
-                            <Input size='compact' />
-                        </FormItem>
+                        {/* <FormItem name="hotkey" label="Hotkey">
+              <Input size="compact" />
+            </FormItem> */}
                         <div
                             style={{
                                 display: 'flex',
@@ -213,6 +217,15 @@ export function Popup() {
                                     marginRight: 'auto',
                                 }}
                             />
+                            <Button
+                                size='compact'
+                                kind='secondary'
+                                onClick={() => {
+                                    navigate('/')
+                                }}
+                            >
+                                Cancel
+                            </Button>
                             <Button isLoading={loading} size='compact'>
                                 Save
                             </Button>
@@ -224,11 +237,3 @@ export function Popup() {
         </div>
     )
 }
-
-const root = createRoot(document.getElementById('root') as HTMLElement)
-
-root.render(
-    <React.StrictMode>
-        <Popup />
-    </React.StrictMode>
-)

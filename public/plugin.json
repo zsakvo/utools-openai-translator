@@ -1,0 +1,23 @@
+{
+    "main": "index.html",
+    "logo": "logo.png",
+    "features": [
+        {
+            "code": "translate",
+            "explain": "Translate plugin powered by ChatGPT",
+            "cmds": ["translate", "翻译"]
+        },
+        {
+            "code": "translate_text",
+            "explain": "Translate Text",
+            "cmds": [
+                {
+                    "type": "over",
+                    "label": "使用 ChatGPT 翻译",
+                    "minLength": 2,
+                    "maxLength": 500
+                }
+            ]
+        }
+    ]
+}
