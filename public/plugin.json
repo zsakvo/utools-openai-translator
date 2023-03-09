@@ -1,21 +1,46 @@
 {
     "main": "index.html",
     "logo": "logo.png",
+    "development": {
+        "main": "http://127.0.0.1:5173/index.html"
+    },
     "features": [
         {
-            "code": "translate",
+            "code": "main",
+            "label": "使用 ChatGPT 翻译",
             "explain": "Translate plugin powered by ChatGPT",
-            "cmds": ["translate", "翻译"]
+            "cmds": ["translate", "翻译", "gpt"]
         },
         {
-            "code": "translate_text",
-            "explain": "Translate Text",
+            "code": "translate",
+            "explain": "翻译文本",
             "cmds": [
                 {
                     "type": "over",
                     "label": "使用 ChatGPT 翻译",
-                    "minLength": 2,
-                    "maxLength": 500
+                    "minLength": 2
+                }
+            ]
+        },
+        {
+            "code": "polishing",
+            "explain": "润色文本",
+            "cmds": [
+                {
+                    "type": "over",
+                    "label": "使用 ChatGPT 润色",
+                    "minLength": 2
+                }
+            ]
+        },
+        {
+            "code": "summarize",
+            "explain": "总结内容",
+            "cmds": [
+                {
+                    "type": "over",
+                    "label": "使用 ChatGPT 总结内容",
+                    "minLength": 2
                 }
             ]
         }

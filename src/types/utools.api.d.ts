@@ -828,3 +828,5 @@ interface UToolsApi {
 }
 
 declare var utools: UToolsApi
+
+declare var say:Function
